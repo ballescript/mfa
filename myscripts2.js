@@ -88,7 +88,7 @@ let products = [
 ];
 
 let html =
-  "<div class='navbar'><h1>Megafrutta</h1><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
+  "<div class='navbar'><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
 products.forEach((p, i) => {
   html +=
     "<div class='parent'>" +
