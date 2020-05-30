@@ -86,16 +86,17 @@ let products = [
   ["Papel higiénico Vogue", "Pieza"],
   ["Pinol 250ml", "Pieza"],
 ];
+
 let prices =
   "29.50	34.90	31.90	30.00	58.50	15.90	23.50	140.00	35.90	13.90	11.50	23.50	13.50	12.90	21.50	10.90	19.50	38.90	21.50	42.00	15.50	72.00	14.50	51.00	41.90	65.00	4.50	4.50	54.00	7.50	24.00	9.90	9.90	6.50	8.50	9.60	9.90	15.50	19.50	25.90	50.00	145.20	12.50	140.00	54.00	105.00	115.00	89.00	59.00	105.00	85.00	45.00	80.00	88.00	78.00	38.00	135.00	168.00	138.00	95.00	110.00	165.00	115.00	30.00	53.00	300.00	145.00	169.00	78.00	69.00	145.00	68.00	145.00	150.00	192.00	18.00	42.00	4.80	48.60	27.60	7.20	18.00	42.00	9.60	8.50	8.50	7.50";
+
 let pricesSplit = prices.split(/(\s+)/);
 let pricesArray = pricesSplit.filter((x) => x.trim() != "");
 products.forEach((p, i) => {
   products[i].push(pricesArray[i]);
 });
 
-let html =
-  "<div class='navbar'><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
+let html = "<div class='navbar'><p class='subt'>FRUTA Y VERDURA</p></div>";
 products.forEach((p, i) => {
   html +=
     "<div class='parent'>" +
@@ -163,9 +164,11 @@ function copyList() {
         "s      " +
         nval +
         " " +
+        (products[i][2] !== "0.00"
+          ? priceTimesQuantity.toFixed(2)
+          : "pendiente") +
         "\n";
       bottomHTML +=
-        "<div>" +
         "•" +
         products[i][0] +
         "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
@@ -174,7 +177,6 @@ function copyList() {
         products[i][1] +
         "s" +
         " " +
-        "</div>" +
         "<div class='total'>" +
         (products[i][2] !== "0.00"
           ? " x " + products[i][2] + " = " + priceTimesQuantity.toFixed(2)
@@ -196,6 +198,9 @@ function copyList() {
         "      " +
         nval +
         " " +
+        (products[i][2] !== "0.00"
+          ? priceTimesQuantity.toFixed(2)
+          : "pendiente") +
         "\n";
       bottomHTML +=
         "•" +
