@@ -96,7 +96,7 @@ products.forEach((p, i) => {
   products[i].push(pricesArray[i]);
 });
 
-let html = "<div class='navbar'><p class='subt'>FRUTA Y VERDURA</p></div>";
+let html = "<div class='navbar'><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
 products.forEach((p, i) => {
   html +=
     "<div class='parent'>" +
