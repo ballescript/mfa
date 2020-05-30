@@ -87,13 +87,9 @@ let products = [
   ["Pinol 250ml", "Pieza"],
 ];
 
-let totales = [];
-console.log(totales);
 let html =
-  "<div id='navbar'><h1>Megafrutta</h1><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
+  "<div class='navbar'><h1>Megafrutta</h1><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
 products.forEach((p, i) => {
-  totales.push([p[0], i, p[1]]);
-
   html +=
     "<div class='parent'>" +
     "<p>" +
@@ -193,7 +189,7 @@ function copyList() {
 }
 function copyFinalList(finalList) {
   const textArea = document.createElement("textarea");
-  console.log(textArea);
+
   textArea.value = finalList;
   document.body.appendChild(textArea);
   textArea.select();
