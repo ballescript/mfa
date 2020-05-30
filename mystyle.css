@@ -17,7 +17,7 @@ input[type="number"] {
   -moz-appearance: textfield;
 }
 input {
-  max-width: 36px;
+  max-width: 42px;
   text-align: center;
 }
 button,
