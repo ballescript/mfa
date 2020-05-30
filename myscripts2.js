@@ -86,9 +86,16 @@ let products = [
   ["Papel higiénico Vogue", "Pieza"],
   ["Pinol 250ml", "Pieza"],
 ];
+let prices =
+  "29.50	34.90	31.90	30.00	58.50	15.90	23.50	140.00	35.90	13.90	11.50	23.50	13.50	12.90	21.50	10.90	19.50	38.90	21.50	42.00	15.50	72.00	14.50	51.00	41.90	65.00	4.50	4.50	54.00	7.50	24.00	9.90	9.90	6.50	8.50	9.60	9.90	15.50	19.50	25.90	50.00	145.20	12.50	140.00	54.00	105.00	115.00	89.00	59.00	105.00	85.00	45.00	80.00	88.00	78.00	38.00	135.00	168.00	138.00	95.00	110.00	165.00	115.00	30.00	53.00	300.00	145.00	169.00	78.00	69.00	145.00	68.00	145.00	150.00	192.00	18.00	42.00	4.80	48.60	27.60	7.20	18.00	42.00	9.60	8.50	8.50	7.50";
+let pricesSplit = prices.split(/(\s+)/);
+let pricesArray = pricesSplit.filter((x) => x.trim() != "");
+products.forEach((p, i) => {
+  products[i].push(pricesArray[i]);
+});
 
 let html =
-  "<div class='navbar'><p class='subt'>Abarrotes, carnes y<br/>artículos de limpieza</p></div>";
+  "<div class='navbar'><h1>Megafrutta</h1><p class='subt'>FRUTA Y VERDURA</p></div>";
 products.forEach((p, i) => {
   html +=
     "<div class='parent'>" +
@@ -102,6 +109,10 @@ products.forEach((p, i) => {
     "</div>" +
     "<div class='nowrap'>" +
     "<div class='right'>" +
+    "<span class='price'>$ " +
+    p[2] +
+    "</span>" +
+    "<br/>" +
     "<button onclick='this.parentNode.querySelector(\"#p" +
     i +
     "\").stepDown()'>" +
@@ -130,11 +141,17 @@ document.getElementById("list").innerHTML = html;
 
 function copyList() {
   let finalList = "";
-  let bottomHTML = "<p class='alert'>Texto copiado:</p>";
+  let total = 0;
+  let bottomHTML =
+    "<p class='alert'>Texto copiado</p><span>Lista:</span><br/><br/>";
   for (var i = 0; i < products.length; i++) {
     let elm = "p" + i;
     let nelm = "n" + i;
+
     let val = document.getElementById(elm).value;
+    let priceTimesQuantity = products[i][2] * val;
+    total += priceTimesQuantity;
+
     let nval = document.getElementById(nelm).value;
     if (val > 1) {
       finalList +=
@@ -145,14 +162,24 @@ function copyList() {
         products[i][1] +
         "s      " +
         nval +
+        " " +
         "\n";
       bottomHTML +=
+        "<div>" +
+        "•" +
         products[i][0] +
         "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
         val +
         " " +
         products[i][1] +
-        "s";
+        "s" +
+        " " +
+        "</div>" +
+        "<div class='total'>" +
+        (products[i][2] !== "0.00"
+          ? " x " + products[i][2] + " = " + priceTimesQuantity.toFixed(2)
+          : "pendiente") +
+        "</div>";
       if (nval !== "") {
         bottomHTML +=
           "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + nval + "<br/>";
@@ -168,13 +195,23 @@ function copyList() {
         products[i][1] +
         "      " +
         nval +
+        " " +
         "\n";
       bottomHTML +=
+        "•" +
         products[i][0] +
         "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" +
         val +
         " " +
-        products[i][1];
+        products[i][1] +
+        " " +
+        "<div class='total'>" +
+        (products[i][2] !== "0.00"
+          ? val != "1"
+            ? " x " + products[i][2] + " = " + priceTimesQuantity.toFixed(2)
+            : products[i][2]
+          : "pendiente") +
+        "</div>";
       if (nval !== "") {
         bottomHTML +=
           "<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" + nval + "<br/>";
@@ -183,6 +220,9 @@ function copyList() {
       }
     }
   }
+
+  let totalString = "Total  $ " + total.toFixed(2);
+  bottomHTML += "<br/><span class='total'>" + totalString + "</span>";
   document.getElementById("bottom").innerHTML = bottomHTML;
 
   copyFinalList(finalList);
