@@ -196,3 +196,6 @@ function copyFinalList(finalList) {
   document.execCommand("copy");
   document.body.removeChild(textArea);
 }
+window.onbeforeunload = function (event) {
+  return this.confirm();
+};
